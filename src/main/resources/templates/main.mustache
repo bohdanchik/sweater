@@ -1,0 +1,59 @@
+<html>
+
+<body>
+
+<div>
+    <form method="post" action="add">
+        <input type="text" name="text" placeholder="Enter message">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+        <button type="submit">Add</button>
+    </form>
+</div>
+
+<div>
+    List of your tasks
+</div>
+{{#messages}}
+    <div>
+        <u>{{id}}</u>
+        <b>{{text}}</b>
+        <form method="post" action="edit">
+            <input type="text" name="newText" placeholder="Enter new text of your message">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <input type="hidden" name="id" value="{{id}}"/>
+            <button type="submit">Edit this message</button>
+        </form>
+        <p>
+        <form method="post" action="sendToUser">
+            <input type="text" name="nameOfUser" placeholder="Enter name of user">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <input type="hidden" name="id" value="{{id}}"/>
+            <button type="submit">Send this message to user</button>
+        </form>
+        <p>
+        <form method="post" action="sendByEmail">
+            <input type="text" name="email" placeholder="Enter email to send">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <input type="hidden" name="id" value="{{id}}"/>
+            <input type="hidden" name="text" value="{{text}}"/>
+            <button type="submit">Send by email</button>
+        </form>
+        <p>
+        <form method="post" action="delete">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <input type="hidden" name="id" value="{{id}}"/>
+            <button type="submit">Delete this message</button>
+        </form>
+        <p>
+    </div>
+{{/messages}}
+
+<form action="/logout" method="post">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <input type="submit" value="Sign Out"/>
+</form>
+</body>
+
+
+</body>
+</html>
